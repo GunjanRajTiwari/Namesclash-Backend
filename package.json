@@ -19,6 +19,7 @@
     "homepage": "https://github.com/GunjanRajTiwari/Namesclash-Backend#readme",
     "dependencies": {
         "express": "^4.17.1",
+        "path": "^0.12.7",
         "socket.io": "^4.0.1"
     }
 }

@@ -1,13 +1,18 @@
 const express = require("express");
 const socket = require("socket.io");
+const path = require("path");
 
 const app = express();
-app.use(express.static(__dirname + "public"));
+app.use(express.static(path.join(__dirname + "public")));
 
 // Routes
 app.get("/", (req, res) => {
-    res.redirect("/public/chat.html");
+    res.sendFile("/public/chat.html");
 });
+
+app.get('/hello' (req,res) => {
+    res.send("hello");
+})
 
 // Listening to the server
 const server = app.listen(process.env.PORT, () => {
