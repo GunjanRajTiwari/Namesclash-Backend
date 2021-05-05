@@ -1,16 +1,12 @@
 const express = require("express");
 const socket = require("socket.io");
 
-const corsOptions = {
-    origin: "https://localhost:5500",
-};
-
 const app = express();
 app.use(express.static("public"));
 
 // Routes
 app.get("/", (req, res) => {
-    res.redirect("/chat.html");
+    res.sendFile(__dirname + "/public/chat.html");
 });
 
 // Listening to the server
