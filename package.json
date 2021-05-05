@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/GunjanRajTiwari/Namesclash-Backend/issues"
   },
-  "homepage": "https://github.com/GunjanRajTiwari/Namesclash-Backend#readme"
+  "homepage": "https://github.com/GunjanRajTiwari/Namesclash-Backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
