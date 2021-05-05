@@ -10,9 +10,9 @@ app.get("/", (req, res) => {
     res.sendFile("/public/chat.html");
 });
 
-app.get('/hello' (req,res) => {
+app.get("/hello", (req, res) => {
     res.send("hello");
-})
+});
 
 // Listening to the server
 const server = app.listen(process.env.PORT, () => {
