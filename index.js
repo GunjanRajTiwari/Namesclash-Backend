@@ -6,7 +6,7 @@ app.use(express.static(__dirname + "public"));
 
 // Routes
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/chat.html");
+    res.sendFile("/public/chat.html");
 });
 
 // Listening to the server
