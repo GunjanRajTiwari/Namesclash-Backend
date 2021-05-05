@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname + "public")));
 
 // Routes
 app.get("/", (req, res) => {
-    res.sendFile("./chat.html");
+    res.sendFile(__dirname + "/chat.html");
 });
 
 app.get("/hello", (req, res) => {
