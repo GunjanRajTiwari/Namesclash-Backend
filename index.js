@@ -2,7 +2,7 @@ const express = require("express");
 const socket = require("socket.io");
 
 const app = express();
-app.use(express.static(__dirname + "public"));
+app.use(express.static("public"));
 
 // Routes
 app.get("/", (req, res) => {
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 });
 
 // Listening to the server
-const server = app.listen(process.env.PORT || 8000, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log("Server is running ...");
 });
 
