@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 // Listening to the server
-const server = app.listen(process.env.PORT | 8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
     console.log("Server is running ...");
 });
 
