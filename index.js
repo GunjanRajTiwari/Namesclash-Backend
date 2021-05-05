@@ -2,7 +2,7 @@ const express = require("express");
 const socket = require("socket.io");
 
 const app = express();
-app.use(express.static("public"));
+app.use(express.static(__dirname + "public"));
 
 // Routes
 app.get("/", (req, res) => {
