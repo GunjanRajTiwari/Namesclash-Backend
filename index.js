@@ -3,7 +3,7 @@ const socket = require("socket.io");
 const path = require("path");
 
 const app = express();
-app.use(express.static("public"));
+app.use("/public", express.static("public"));
 
 // Routes
 app.get("/", (req, res) => {
