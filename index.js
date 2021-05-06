@@ -6,16 +6,16 @@ const app = express();
 app.use(express.static("public"));
 
 // Routes
-// app.get("/", (req, res) => {
-//     res.sendFile(__dirname + "/chat.html");
-// });
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/chat.html");
+});
 
 app.get("/hello", (req, res) => {
     res.send("hello");
 });
 
 // Listening to the server
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
     console.log("Server is running ...");
 });
 
