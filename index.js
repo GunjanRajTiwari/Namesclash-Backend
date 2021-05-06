@@ -16,7 +16,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 // Socket Setup
 const io = socket(server, {
     cors: {
-        origin: "https://namesclash.netlify.app/",
+        origin: "https://namesclash.netlify.app",
     },
 });
 
