@@ -14,7 +14,11 @@ const server = app.listen(process.env.PORT || 8000, () => {
 });
 
 // Socket Setup
-const io = socket(server);
+const io = socket(server, {
+    cors: {
+        origin: "https://namesclash.netlify.app/",
+    },
+});
 
 io.on("connection", (socket) => {
     console.log("Made socket connection:", socket.id);
