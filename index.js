@@ -16,7 +16,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 // Socket Setup
 const io = socket(server, {
     cors: {
-        origin: "https://namesclash.netlify.app",
+        origin: ["https://namesclash.netlify.app", "http://127.0.0.1:5500"],
     },
 });
 
@@ -25,5 +25,9 @@ io.on("connection", (socket) => {
 
     socket.on("chat", (data) => {
         io.sockets.emit("chat", data);
+    });
+
+    socket.on("typing", function (data) {
+        socket.broadcast.emit("typing", data);
     });
 });
