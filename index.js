@@ -1,17 +1,11 @@
 const express = require("express");
 const socket = require("socket.io");
-const path = require("path");
 
 const app = express();
-app.use("/public", express.static("public"));
 
 // Routes
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "chat.html"));
-});
-
-app.get("/hello", (req, res) => {
-    res.send("hello");
+app.get("*", (req, res) => {
+    res.send("<center>Welcome to Names Clash Backend</center>");
 });
 
 // Listening to the server
