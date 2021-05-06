@@ -6,9 +6,9 @@ const app = express();
 app.use(express.static("public"));
 
 // Routes
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/chat.html");
-});
+// app.get("/", (req, res) => {
+//     res.sendFile(__dirname + "/chat.html");
+// });
 
 app.get("/hello", (req, res) => {
     res.send("hello");
