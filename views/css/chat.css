@@ -25,9 +25,19 @@
 
 .chat {
     background-color: var(--grey);
-    padding: 1em;
-    margin: 1em;
+    padding: 0.6em;
+    margin: 0.6em;
     color: #fff;
+    width: 75%;
+    float: left;
+    border-radius: 12px 12px 12px 0;
+}
+
+.mine {
+    background-color: var(--red-trans);
+    color: #fff;
+    float: right;
+    border-radius: 12px 12px 0 12px;
 }
 
 .typing {

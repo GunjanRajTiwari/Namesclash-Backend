@@ -15,6 +15,7 @@ function fireMessage() {
     }
 
     socket.emit("chat", {
+        id: user.id,
         name: user.name,
         photo: user.photo,
         gang: user.gang,
@@ -46,6 +47,9 @@ socket.emit("joinRoom", user);
 socket.on("chat", (data) => {
     const div = document.createElement("div");
     div.classList.add("chat");
+    if (data.id === user.id) {
+        div.classList.add("mine");
+    }
     div.innerHTML = `
         <small>${data.name}</small>
         <p>${data.message}</p>

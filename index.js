@@ -49,6 +49,7 @@ app.get("/", (req, res) => {
 app.get("/chat", (req, res) => {
     res.render("chat", {
         user: {
+            id: Math.floor(Math.random() * 10),
             name: "Gunjan Raj Tiwari",
             gang: "Gunjan",
             photo: "https://avatars.githubusercontent.com/u/54533347?v=4",
@@ -72,7 +73,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 //----------------------------------------
 const io = socket(server, {
     cors: {
-        origin: ["https://namesclash.netlify.app", "http://127.0.0.1:5500"],
+        origin: ["https://namesclash.netlify.app", "http://127.0.0.1:2000"],
     },
 });
 
@@ -84,7 +85,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("chat", (data) => {
-        io.to(data.gang).emit("chat", data.message);
+        io.to(data.gang).emit("chat", data);
     });
 
     socket.on("typing", function (data) {
