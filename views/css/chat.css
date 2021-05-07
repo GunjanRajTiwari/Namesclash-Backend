@@ -1,0 +1,62 @@
+@import url("./default.css");
+
+.container {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+}
+
+.chat-area {
+    margin-top: 0.5em;
+    overflow: auto;
+    flex: 4 0;
+}
+
+.chat-area::-webkit-scrollbar {
+    width: 0.6em;
+    background-color: var(--grey);
+}
+
+.chat-area::-webkit-scrollbar-thumb {
+    background-color: var(--red);
+    outline: 0;
+    border-radius: 20px;
+}
+
+.chat {
+    background-color: var(--grey);
+    padding: 1em;
+    margin: 1em;
+    color: #fff;
+}
+
+.typing {
+    padding: 0.2em 1em;
+}
+
+.form {
+    position: sticky;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: stretch;
+    padding: 0.8em;
+}
+
+.message {
+    background-color: var(--grey);
+    flex: 2;
+    border: 0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--typo-alt);
+    padding: 0.8em 1em;
+}
+
+.send {
+    background-color: var(--red);
+    border: 0;
+    border-radius: 4px;
+    width: 50px;
+    margin-left: 4px;
+}

@@ -1,0 +1,54 @@
+@import url("./default.css");
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.top {
+    margin-top: 3em;
+    width: 100%;
+}
+
+.bottom {
+    margin-bottom: 4em;
+    width: 90%;
+}
+
+.logo {
+    width: 80px;
+    margin: 2em auto;
+}
+
+.label {
+    font-weight: 400;
+}
+
+.name {
+    background-color: var(--grey);
+    border: 0;
+    width: 70%;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--typo-alt);
+    padding: 0.8em 1em;
+}
+
+.btn {
+    margin: 1.5em auto;
+}
+
+#agree {
+    margin: 0;
+    padding: 0;
+    width: 30px;
+}
+
+.agree {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
