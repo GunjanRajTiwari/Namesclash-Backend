@@ -51,8 +51,11 @@ socket.on("chat", (data) => {
         div.classList.add("mine");
     }
     div.innerHTML = `
+        <div class="head">
+        <img class="avatar" src="${data.photo}">
         <small>${data.name}</small>
-        <p>${data.message}</p>
+        <div>
+        <p class="message-text">${data.message}</p>
     `;
     output.appendChild(div);
     output.scrollTop = output.scrollHeight;

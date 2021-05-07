@@ -47,6 +47,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/chat", (req, res) => {
+    // console.log(req.session);
     res.render("chat", {
         user: {
             id: Math.floor(Math.random() * 10),

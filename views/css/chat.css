@@ -25,12 +25,32 @@
 
 .chat {
     background-color: var(--grey);
-    padding: 0.6em;
+    padding: 0.5em 0.7em;
     margin: 0.6em;
     color: #fff;
     width: 75%;
     float: left;
     border-radius: 12px 12px 12px 0;
+}
+
+.avatar {
+    display: inline-block;
+    vertical-align: middle;
+    height: 24px;
+    width: 24px;
+    border-radius: 8px;
+    margin-right: 0.5em;
+}
+
+.head > small {
+    font-size: 0.7rem;
+    font-weight: 300;
+    padding-bottom: 2px;
+}
+
+.message-text {
+    font-size: 0.9rem;
+    margin: 0.2em 0;
 }
 
 .mine {
