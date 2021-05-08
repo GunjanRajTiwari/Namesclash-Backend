@@ -89,7 +89,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 //----------------------------------------
 const io = socket(server, {
     cors: {
-        origin: ["https://namesclash.netlify.app", "http://127.0.0.1:2000"],
+        origin: ["http://namesclash.herokuapp.com/", "http://127.0.0.1:2000"],
     },
 });
 
