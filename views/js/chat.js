@@ -1,6 +1,6 @@
 // Make socket connection
-const socket = io.connect("http://localhost:8000/");
-// const socket = io.connect("https://namesclash.herokuapp.com/");
+// const socket = io.connect("http://localhost:8000/");
+const socket = io.connect("https://namesclash.herokuapp.com/");
 
 // DOM Query
 const message = document.getElementById("message");
@@ -15,7 +15,7 @@ function fireMessage() {
     }
 
     socket.emit("chat", {
-        id: user.id,
+        id: user.googleId,
         name: user.name,
         photo: user.photoUrl,
         gang: user.gang,
@@ -47,7 +47,7 @@ socket.emit("joinRoom", user);
 socket.on("chat", (data) => {
     const div = document.createElement("div");
     div.classList.add("chat");
-    if (data.id === user.id) {
+    if (data.id === user.googleId) {
         div.classList.add("mine");
     }
     div.innerHTML = `
