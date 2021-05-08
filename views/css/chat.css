@@ -6,6 +6,11 @@
     flex-flow: column;
 }
 
+.link-right {
+    margin: 0 0.5em;
+    float: right;
+}
+
 .chat-area {
     margin-top: 0.5em;
     overflow: auto;
@@ -29,6 +34,7 @@
     margin: 0.6em;
     color: #fff;
     width: 75%;
+    mask: 100%;
     float: left;
     border-radius: 12px 12px 12px 0;
 }
@@ -39,7 +45,7 @@
     height: 24px;
     width: 24px;
     border-radius: 8px;
-    margin-right: 0.5em;
+    margin-right: 0.2em;
 }
 
 .head > small {
@@ -50,7 +56,7 @@
 
 .message-text {
     font-size: 0.9rem;
-    margin: 0.2em 0;
+    margin: 0.3em 0;
 }
 
 .mine {

@@ -14,16 +14,15 @@
             var user = <%- JSON.stringify(user) %>
         </script>
         <div class="container">
-            <div class="appbar"><%=user.gang%>'s Chat</div>
+            <div class="appbar">
+                <%=user.gang%>'s Chat
+                <a class="link-right" href="/profile"><img src="./assets/profile.png" /></a>
+            </div>
 
             <div class="chat-area" id="chat-area">
                 <div class="chat">
-                    <small>Gunjan</small>
-                    <p>This is a message.</p>
-                </div>
-                <div class="chat">
-                    <small>Gunjan</small>
-                    <p>This is a message.</p>
+                    <small>Names Clash</small>
+                    <p>This is where all <%=user.gang%> meet.</p>
                 </div>
             </div>
 

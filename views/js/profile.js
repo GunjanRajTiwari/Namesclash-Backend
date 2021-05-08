@@ -5,3 +5,7 @@ document.getElementById("chat").addEventListener("click", () => {
 document.getElementById("rank").addEventListener("click", () => {
     location.href = "/rank";
 });
+
+document.getElementById("logout").addEventListener("click", () => {
+    location.href = "/logout";
+});

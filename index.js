@@ -1,14 +1,24 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
-const session = require("express-session");
 const ejs = require("ejs");
 const passport = require("passport");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 require("./passport-setup");
 const router = require("./auth-route");
 const path = require("path");
+const { ensureAuth, ensureGuest } = require("./middleware/auth");
+
+const connectDB = require("./config/db");
+
+dotenv.config();
+
+connectDB();
+const User = require("./models/User");
+const Gang = require("./models/Gang");
 
 const app = express();
 
@@ -22,44 +32,49 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
 );
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(router);
 
-// -----------------------------------
-// ------- DB Connection ------------
-// ---------------------------------
-
-// mongoose.connect(process.env.DATABASE_URL, {
-//     useNewUrlParser: true,
-// });
-
 // ------------------------------
 // ----------- Routes
 // ------------------------------
 
-app.get("/", (req, res) => {
+app.get("/", ensureGuest, (req, res) => {
     res.render("login");
 });
 
-app.get("/chat", (req, res) => {
+app.get("/chat", ensureAuth, (req, res) => {
     // console.log(req.session);
-    res.render("chat", {
-        user: {
-            id: Math.floor(Math.random() * 10),
-            name: "Gunjan Raj Tiwari",
-            gang: "Gunjan",
-            photo: "https://avatars.githubusercontent.com/u/54533347?v=4",
-        },
-    });
+    // res.render("chat", {
+    //     user: {
+    //         id: Math.floor(Math.random() * 10),
+    //         name: "Gunjan Raj Tiwari",
+    //         gang: "Gunjan",
+    //         photo: "https://avatars.githubusercontent.com/u/54533347?v=4",
+    //     },
+    // });
+    res.render("chat", { user: req.user });
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile");
+app.get("/profile", ensureAuth, (req, res) => {
+    // console.log(req.user);
+    res.render("profile", { user: req.user });
+});
+
+app.get("/rank", ensureAuth, async (req, res) => {
+    // try {
+    //     const gang = await Gang.find({}).sort({ comrades: -1 }).limit(10);
+    //     return res.send("gang");
+    // } catch (e) {
+    //     return res.send("error");
+    // }
+    res.render("rank", { gang: [] });
 });
 
 // -----------------------------------------

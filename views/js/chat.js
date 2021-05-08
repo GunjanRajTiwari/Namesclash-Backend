@@ -17,7 +17,7 @@ function fireMessage() {
     socket.emit("chat", {
         id: user.id,
         name: user.name,
-        photo: user.photo,
+        photo: user.photoUrl,
         gang: user.gang,
         message: message.value,
     });

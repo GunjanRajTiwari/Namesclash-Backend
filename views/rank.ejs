@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rank</title>
+        <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="./css/rank.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="appbar">
+                Rank <a class="link-right" href="/profile"><img src="./assets/profile.png" /></a>
+            </div>
+            <div class="board" id="board">
+                <div class="card topCard">
+                    <span class="rank">Rank</span>
+                    <span class="gang">Gang</span>
+                    <span class="comrades">Comrades</span>
+                </div>
+
+                <% for(let i=0; i< gang.length; ++i){ %>
+                <div class="card">
+                    <span class="rank"># <%= i+1 %> </span>
+                    <span class="gang"> <%= gang[i].name %> </span>
+                    <span class="comrades"> <%= gang[i].comrades %> ♟</span>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </body>
+</html>

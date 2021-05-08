@@ -1,17 +1,33 @@
-const passport = require("passport");
 require("dotenv").config();
+const passport = require("passport");
+const mongoose = require("mongoose");
+const User = require("./models/User");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const Gang = require("./models/Gang");
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    done(null, user);
 });
 
 passport.deserializeUser(function (id, done) {
-    // User.findById(id, function (err, user) {
-    //     done(err, user);
-    // });
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
     done(null, id);
 });
+
+async function updateGang(gang) {
+    await Gang.findOneAndUpdate(
+        { name: gang },
+        {
+            name: gang,
+            $inc: {
+                comrades: 1,
+            },
+        },
+        { upsert: true }
+    );
+}
 
 passport.use(
     new GoogleStrategy(
@@ -20,11 +36,27 @@ passport.use(
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/callback",
         },
-        function (accessToken, refreshToken, profile, cb) {
-            // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            //     return cb(err, user);
-            // });
-            cb(null, profile);
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                // console.log(profile.id);
+                let user = await User.findOne({ googleId: profile.id });
+
+                if (user) {
+                    done(null, user);
+                } else {
+                    const newUser = {
+                        googleId: profile.id,
+                        name: profile.displayName,
+                        gang: profile.name.givenName.split(" ")[0].toLowerCase(),
+                        photoUrl: profile.photos[0].value,
+                    };
+                    user = await User.create(newUser);
+                    updateGang(newUser.gang);
+                    done(null, user);
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     )
 );

@@ -10,18 +10,17 @@
         <link rel="stylesheet" href="./css/profile.css" />
     </head>
     <body>
-        <% var userData = user._json %>
         <div class="container">
             <div class="appbar">Profile</div>
 
             <div class="body">
                 <div class="avatar-div">
-                    <img src="<%=userData.picture%>" alt="avatar" class="avatar" />
+                    <img src="<%=user.photoUrl%>" alt="avatar" class="avatar" />
                 </div>
 
                 <div class="info">
-                    <p class="name"><%=userData.name%></p>
-                    <p class="gang"><%=userData.given_name.split(' ')[0]%> Gang</p>
+                    <p class="name"><%=user.name%></p>
+                    <p class="gang"><%=user.gang%> Gang</p>
                 </div>
 
                 <div class="nav">
@@ -38,7 +37,7 @@
 
                 <div class="sized-box"></div>
 
-                <button class="btn">Logout</button>
+                <button id="logout" class="btn">Logout</button>
             </div>
         </div>
         <script src="./js/profile.js"></script>
