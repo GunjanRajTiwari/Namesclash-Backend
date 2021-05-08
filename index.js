@@ -68,13 +68,13 @@ app.get("/profile", ensureAuth, (req, res) => {
 });
 
 app.get("/rank", ensureAuth, async (req, res) => {
-    // try {
-    //     const gang = await Gang.find({}).sort({ comrades: -1 }).limit(10);
-    //     return res.send("gang");
-    // } catch (e) {
-    //     return res.send("error");
-    // }
-    res.render("rank", { gang: [] });
+    Gang.find()
+        .sort({ comrades: -1 })
+        .limit(10)
+        .exec()
+        .then((gang) => {
+            res.render("rank", { gang: gang });
+        });
 });
 
 // -----------------------------------------

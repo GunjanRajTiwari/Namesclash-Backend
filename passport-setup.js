@@ -13,7 +13,6 @@ passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
         done(err, user);
     });
-    done(null, id);
 });
 
 async function updateGang(gang) {
