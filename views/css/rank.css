@@ -1,20 +1,24 @@
 @import url("./default.css");
 
 .link-right {
-    margin: 0 0.5em;
-    float: right;
+	margin: 0 0.5em;
+	float: right;
 }
 
 .card {
-    display: flex;
-    justify-content: space-between;
-    margin: 0.5em;
-    padding: 0.8em;
-    border-radius: 4px;
-    background-color: var(--grey);
+	display: flex;
+	justify-content: space-between;
+	margin: 0.5em;
+	padding: 0.8em;
+	border-radius: 4px;
+	background-color: var(--grey);
 }
 
 .topCard {
-    color: white;
-    background-color: #ff5858;
+	color: white;
+	background-color: #ff5858;
+}
+
+.board {
+	overflow: auto;
 }

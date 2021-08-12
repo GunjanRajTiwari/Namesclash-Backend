@@ -8,7 +8,8 @@ const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 require("./passport-setup");
-const router = require("./auth-route");
+const authRouter = require("./routes/auth-route");
+const userRouter = require("./routes/user-route");
 const path = require("path");
 const { ensureAuth, ensureGuest } = require("./middleware/auth");
 
@@ -28,87 +29,98 @@ const app = express();
 app.use(express.static(path.join(__dirname, "views")));
 app.set("view engine", "ejs");
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
-        store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    })
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: true,
+		store: new MongoStore({ mongooseConnection: mongoose.connection }),
+	})
 );
 // app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(router);
+app.use(authRouter);
+app.use(userRouter);
 
 // ------------------------------
 // ----------- Routes
 // ------------------------------
 
 app.get("/", ensureGuest, (req, res) => {
-    res.render("login");
+	res.render("login");
 });
 
 app.get("/chat", ensureAuth, (req, res) => {
-    // console.log(req.session);
-    // res.render("chat", {
-    //     user: {
-    //         id: Math.floor(Math.random() * 10),
-    //         name: "Gunjan Raj Tiwari",
-    //         gang: "Gunjan",
-    //         photo: "https://avatars.githubusercontent.com/u/54533347?v=4",
-    //     },
-    // });
-    res.render("chat", { user: req.user });
+	// console.log(req.session);
+	// res.render("chat", {
+	//     user: {
+	//         id: Math.floor(Math.random() * 10),
+	//         name: "Gunjan Raj Tiwari",
+	//         gang: "Gunjan",
+	//         photo: "https://avatars.githubusercontent.com/u/54533347?v=4",
+	//     },
+	// });
+	res.render("chat", { user: req.user });
 });
 
-app.get("/profile", ensureAuth, (req, res) => {
-    // console.log(req.user);
-    res.render("profile", { user: req.user });
+app.get("/profile", ensureAuth, async (req, res) => {
+	try {
+		if (req.user.gang == "newbie") {
+			const response = await Gang.find({}, "name").sort({ name: 1 });
+			const gangs = response.map(item => item.name);
+			console.log(gangs);
+			res.render("profile", { user: req.user, gangs });
+		} else {
+			res.render("profile", { user: req.user, gangs: {} });
+		}
+	} catch (e) {
+		res.status(500).send(e);
+	}
 });
 
 app.get("/rank", ensureAuth, async (req, res) => {
-    Gang.find()
-        .sort({ comrades: -1 })
-        .limit(10)
-        .exec()
-        .then((gang) => {
-            res.render("rank", { gang: gang });
-        });
+	Gang.find()
+		.sort({ comrades: -1 })
+		.limit(10)
+		.exec()
+		.then(gang => {
+			res.render("rank", { gang: gang });
+		});
 });
 
 // -----------------------------------------
 // ---------- Listening to the server
 // -----------------------------------------
 const server = app.listen(process.env.PORT || 8000, () => {
-    console.log("Server is running ...");
+	console.log("Server is running ...");
 });
 
 // ---------------------------------------
 // ------------Socket Setup
 //----------------------------------------
 const io = socket(server, {
-    cors: {
-        origin: [
-            "http://namesclash.herokuapp.com",
-            "https://namesclash.herokuapp.com",
-            "http://127.0.0.1:2000",
-        ],
-    },
+	cors: {
+		origin: [
+			"http://namesclash.herokuapp.com",
+			"https://namesclash.herokuapp.com",
+			"http://127.0.0.1:2000",
+		],
+	},
 });
 
-io.on("connection", (socket) => {
-    socket.on("joinRoom", (user) => {
-        socket.join(user.gang);
+io.on("connection", socket => {
+	socket.on("joinRoom", user => {
+		socket.join(user.gang);
 
-        socket.broadcast.to(user.gang).emit("typing", "Someone joined.");
-    });
+		socket.broadcast.to(user.gang).emit("typing", "Someone joined.");
+	});
 
-    socket.on("chat", (data) => {
-        io.to(data.gang).emit("chat", data);
-    });
+	socket.on("chat", data => {
+		io.to(data.gang).emit("chat", data);
+	});
 
-    socket.on("typing", function (data) {
-        socket.broadcast.to(data.gang).emit("typing", data.value);
-    });
+	socket.on("typing", function (data) {
+		socket.broadcast.to(data.gang).emit("typing", data.value);
+	});
 });
