@@ -26,8 +26,8 @@ function fireMessage() {
 }
 
 // Load Messages
-const oldMsg = localStorage.getItem("ncMsg");
-if (oldMsg) {
+const oldMsg = localStorage.getItem("ncMsg") || [];
+if (oldMsg.length > 0) {
 	oldMsg.map(data => {
 		addMessages(data);
 	});
