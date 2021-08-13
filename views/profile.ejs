@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="./css/profile.css" />
 		<link rel="manifest" href="./manifest.json" />
 	</head>
+
 	<body>
 		<div class="container">
 			<div class="appbar">Profile</div>
@@ -25,7 +26,7 @@
 				</div>
 
 				<div class="nav">
-					<% if(user.gang == "newbie"){ %>
+					<% if(user.gang=="newbie" ){ %>
 					<div class="nav-link" id="select-gang">
 						<span>Select Gang</span>
 					</div>
@@ -37,8 +38,10 @@
 							</div>
 
 							<div class="modal-body">
-								<% gangs.map(gang => { %>
-								<div class="modal-option"><%= gang %></div>
+								<% gangs.map(gang=> { %>
+								<div class="modal-option" onclick="selectGang('<%= gang %>')">
+									 <%= gang %>
+								</div>
 								<% }) %>
 							</div>
 
@@ -68,6 +71,7 @@
 				<button id="logout" class="btn">Logout</button>
 			</div>
 		</div>
-		<script src="./js/profile.js"></script>
+        <script defer src="./js/topbar.min.js"></script>
+		<script defer src="./js/profile.js"></script>
 	</body>
 </html>

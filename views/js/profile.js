@@ -1,3 +1,14 @@
+topbar.config({
+	autoRun: true,
+	barThickness: 3,
+	barColors: {
+		".5": "rgba(250,  76, 76, .9)",
+		"1.0": "rgba(26,  188, 156, .9)",
+	},
+	shadowBlur: 10,
+	shadowColor: "rgba(0,   0,   0,   .6)",
+});
+
 document.getElementById("chat")?.addEventListener("click", () => {
 	location.href = "/chat";
 });
@@ -9,6 +20,21 @@ document.getElementById("rank").addEventListener("click", () => {
 document.getElementById("logout").addEventListener("click", () => {
 	location.href = "/logout";
 });
+
+async function selectGang(gang) {
+	topbar.show();
+	console.log(gang);
+
+	await fetch("/set-gang", {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ gang: gang }),
+	});
+	topbar.hide();
+	window.location.reload();
+}
 
 /////////////// Modal ///////////////////
 

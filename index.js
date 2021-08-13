@@ -69,7 +69,6 @@ app.get("/profile", ensureAuth, async (req, res) => {
 		if (req.user.gang == "newbie") {
 			const response = await Gang.find({}, "name").sort({ name: 1 });
 			const gangs = response.map(item => item.name);
-			console.log(gangs);
 			res.render("profile", { user: req.user, gangs });
 		} else {
 			res.render("profile", { user: req.user, gangs: {} });
