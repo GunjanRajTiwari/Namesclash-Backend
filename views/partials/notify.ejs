@@ -7,7 +7,10 @@
     const notifyBar = document.getElementById('notify');
     const socket = io.connect("https://namesclash.herokuapp.com/");
     socket.emit('joinRoom', user)
-    socket.on('chat', () => {
+    socket.on('chat', (data) => {
+        const msgStore = localStorage.getItem('ncMsg') || [];
+        msgStore.push(data);
+        localStorage.setItem('ncMsg',msgStore);
         notifyBar.classList.add('show-notify')
         setTimeout(() => {
             notifyBar.classList.remove('show-notify')
