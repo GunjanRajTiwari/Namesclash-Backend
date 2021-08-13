@@ -8,9 +8,9 @@
     const socket = io.connect("https://namesclash.herokuapp.com/");
     socket.emit('joinRoom', user)
     socket.on('chat', (data) => {
-        const msgStore = localStorage.getItem('ncMsg') || [];
+        const msgStore = JSON.parse(localStorage.getItem('ncMsg')) || [];
         msgStore.push(data);
-        localStorage.setItem('ncMsg',msgStore);
+        localStorage.setItem('ncMsg',JSON.stringify(msgStore));
         notifyBar.classList.add('show-notify')
         setTimeout(() => {
             notifyBar.classList.remove('show-notify')

@@ -26,7 +26,7 @@ function fireMessage() {
 }
 
 // Load Messages
-const oldMsg = localStorage.getItem("ncMsg") || [];
+const oldMsg = JSON.parse(localStorage.getItem("ncMsg")) || [];
 if (oldMsg.length > 0) {
 	oldMsg.map(data => {
 		addMessages(data);
@@ -72,12 +72,12 @@ const addMessages = data => {
 // Listen for events
 socket.on("chat", data => {
 	addMessages(data);
-	const msgStore = localStorage.getItem("ncMsg") || [];
+	const msgStore = JSON.parse(localStorage.getItem("ncMsg")) || [];
 	msgStore.push(data);
 	if (msgStore.length > 20) {
 		msgStore.shift();
 	}
-	localStorage.setItem("ncMsg", msgStore);
+	localStorage.setItem("ncMsg", JSON.stringify(msgStore));
 });
 
 socket.on("typing", function (data) {
