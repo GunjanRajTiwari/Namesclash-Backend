@@ -22,7 +22,7 @@ router.patch("/set-gang", ensureAuth, async (req, res) => {
 	try {
 		const user = req.user;
 		console.log(req.body);
-		const gang = req.body.gang.trim().toLowerCase();
+		const gang = req.body.gang;
 		await User.findOneAndUpdate({ googleId: user.googleId }, { gang });
 		updateGang(gang);
 		res.status(200).send("ok");
