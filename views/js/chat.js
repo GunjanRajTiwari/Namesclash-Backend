@@ -26,7 +26,7 @@ function fireMessage() {
 }
 
 // Load Messages
-const oldMsg = localStorage.getItem("ncMsg");
+var oldMsg = localStorage.getItem("ncMsg");
 if (oldMsg) {
 	oldMsg = JSON.parse(oldMsg);
 	oldMsg.map(data => {
@@ -73,7 +73,7 @@ const addMessages = data => {
 // Listen for events
 socket.on("chat", data => {
 	addMessages(data);
-	const msgStore = localStorage.getItem("ncMsg");
+	var msgStore = localStorage.getItem("ncMsg");
 	if (msgStore) {
 		msgStore = JSON.parse(msgStore);
 	} else {
