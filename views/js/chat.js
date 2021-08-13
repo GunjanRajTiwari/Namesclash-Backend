@@ -25,6 +25,25 @@ function fireMessage() {
 	message.value = "";
 }
 
+// Adding messages to UI util
+const addMessages = data => {
+	const div = document.createElement("div");
+	div.classList.add("chat");
+	if (data.id === user.googleId) {
+		div.classList.add("mine");
+	}
+	div.innerHTML = `
+        <div class="head">
+        <img class="avatar" src="${data.photo}">
+        <small>${data.name}</small>
+        <div>
+        <p class="message-text">${data.message}</p>
+    `;
+	output.appendChild(div);
+	output.scrollTop = output.scrollHeight;
+	feedback.innerHTML = "";
+};
+
 // Load Messages
 var oldMsg = localStorage.getItem("ncMsg");
 if (oldMsg) {
@@ -51,24 +70,6 @@ message.addEventListener("keypress", function () {
 });
 
 socket.emit("joinRoom", user);
-
-const addMessages = data => {
-	const div = document.createElement("div");
-	div.classList.add("chat");
-	if (data.id === user.googleId) {
-		div.classList.add("mine");
-	}
-	div.innerHTML = `
-        <div class="head">
-        <img class="avatar" src="${data.photo}">
-        <small>${data.name}</small>
-        <div>
-        <p class="message-text">${data.message}</p>
-    `;
-	output.appendChild(div);
-	output.scrollTop = output.scrollHeight;
-	feedback.innerHTML = "";
-};
 
 // Listen for events
 socket.on("chat", data => {
