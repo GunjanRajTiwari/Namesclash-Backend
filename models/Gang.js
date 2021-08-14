@@ -4,6 +4,7 @@ const GangSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	comrades: {
 		type: Number,

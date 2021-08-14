@@ -1,7 +1,7 @@
 const { ensureAuth } = require("../middleware/auth");
 const Gang = require("../models/Gang");
 const User = require("../models/User");
-const { updateAllUser, updateAllGang } = require("../script");
+const { updateAllUser, updateAllGang, addName } = require("../script");
 
 const router = require("express").Router();
 
@@ -32,7 +32,8 @@ router.patch("/set-gang", ensureAuth, async (req, res) => {
 	}
 });
 
-// router.get("/admin/reset-user", ensureAuth, updateAllUser);
-// router.get("/admin/reset-gang", ensureAuth, updateAllGang);
+router.get("/admin/reset-user", ensureAuth, updateAllUser);
+router.get("/admin/reset-gang", ensureAuth, updateAllGang);
+router.get("/admin/addName/:name", ensureAuth, addName);
 
 module.exports = router;

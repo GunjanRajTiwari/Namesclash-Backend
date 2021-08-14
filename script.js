@@ -69,4 +69,22 @@ async function updateAllGang(req, res) {
 	}
 }
 
-module.exports = { updateAllUser, updateAllGang };
+async function addName(req, res) {
+	if (req.user.googleId !== admin) {
+		return res
+			.status(403)
+			.send(
+				"<h2 style='color:red'>You are Forbidden to access this page.</h2>"
+			);
+	}
+	try {
+		const name = req.params.name;
+		await Gang.create({ name });
+
+		res.send("<h1 style='color:green'>Success</h1>");
+	} catch (e) {
+		res.status(500).send("Something went wrong!");
+	}
+}
+
+module.exports = { updateAllUser, updateAllGang, addName };
